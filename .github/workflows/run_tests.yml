@@ -10,14 +10,9 @@ on:
         type: choice
         options:
           - Run tests
-          - test_login
-          - test_successful_post_creation
-          - test_validation_messages
-
-env:
-  LOGIN: ${{ secrets.LOGIN }}
-  PASSWORD: ${{ secrets.PASSWORD }}
-  URL_SITE: ${{ secrets.URL_SITE }}
+          - test_create_todo
+          - test_create_and_change_todo
+          - test_create_and_change_and_delete_todo
 
 jobs:
   test:
@@ -36,13 +31,13 @@ jobs:
         run: pip install -r requirements.txt
       - name: Run tests
         if: "github.event.inputs.deployment_target == 'Run tests'"
-        run: pytest test_page_object.py
-      - name: test_login
-        if: "github.event.inputs.deployment_target == 'test_login'"
-        run: pytest test_page_object.py::TestWebSite::test_login
-      - name: test_successful_post_creation
-        if: "github.event.inputs.deployment_target == 'test_successful_post_creation'"
-        run: pytest test_page_object.py::TestWebSite::test_post_creation
-      - name: test_validation_messages
-        if: "github.event.inputs.deployment_target == 'test_validation_messages'"
-        run: pytest test_page_object.py::TestWebSite::test_validation_messages
+        run: pytest test_homework.py
+      - name: test_create_todo
+        if: "github.event.inputs.deployment_target == 'test_create_todo'"
+        run: pytest test_homework.py::TestWebSite::test_create_todo
+      - name: test_create_and_change_todo
+        if: "github.event.inputs.deployment_target == 'test_create_and_change_todo'"
+        run: pytest test_homework.py::TestWebSite::test_create_and_change_todo
+      - name: test_create_and_change_and_delete_todo
+        if: "github.event.inputs.deployment_target == 'test_create_and_change_and_delete_todo'"
+        run: pytest test_homework.py::TestWebSite::test_create_and_change_and_delete_todo
